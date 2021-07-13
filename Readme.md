@@ -428,3 +428,36 @@ sudo docker ps
 sudo docker exec -it {docker_container_name} bash
 
 ```
+
+---
+
+## SETTING UP PRODUCTION ENVIRONMENT
+
+1. Initialize a GIT Repository
+2. Add all the files necessary into the git repository
+3. Set up a virtual machine with ubuntu operating system
+4. SSH into the virtual machine using any software such as Putty
+5. Install docker if not already installed using :
+
+    ```python
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sh get-docker.sh
+    ```
+
+6. Install docker-compose using :
+
+    ```python
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+    ```
+
+7. Create environment variables in the linux system so that the docker conatiner can read them instead of hardcoding the environment variables.
+
+    ```python
+        # Create a .env file which will contain all the environment variables.
+        ENV_VARIABLE_NAME=variable_name
+
+        # Edit .profile file by adding the following command to the end of the file
+        # This is one way to set environment variables from the .env file
+        set -o allexport; source /path/to/.env; set +o allexport
+    ```
