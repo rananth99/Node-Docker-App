@@ -1,0 +1,17 @@
+version: "3"
+services: 
+    # this is nginx container service
+    nginx:
+        ports:
+            - "3030:80"
+    
+    # this is node-app container service
+    node-app:
+        build:
+            context: .
+            args:
+                NODE_ENV: production
+        environment:
+            - NODE_ENV=production
+        command: node index.js
+        

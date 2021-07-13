@@ -1,0 +1,28 @@
+version: "3"
+services: 
+    # this is nginx container service
+    nginx:
+        ports:
+            - "2020:80"
+    
+    # this is our node-app container service
+    node-app: 
+        build:
+            context: .
+            args:
+                NODE_ENV: development
+        volumes:
+            - ./:/app:ro
+            - /app/node_modules
+        environment:
+            - NODE_ENV = development
+            - MONGO_USER = ananth
+            - MONGO_PASSWORD = mypassword
+            - SESSION_SECRET = secret
+        command: npm run dev
+    
+    # this is our mongo db container service
+    mongo:
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME = ananth
+            - MONGO_INITDB_ROOT_PASSWORD = mypassword

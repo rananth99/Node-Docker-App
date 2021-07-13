@@ -1,0 +1,35 @@
+version: "3"
+services:
+    # this is nginx container service
+    nginx:
+        image: nginx:stable-alpine
+        # we are using volumes with bind mount in order to sync our specific configurations with the nginx image
+        volumes:
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    # this is our node app container service
+    node-app: 
+        build: .
+        env_file: 
+            - ./.env
+        # this actually makes sure that the mongo container starts first and only then the node-app container starts.
+        depends_on: 
+            - mongo
+
+    # this is our mongo db container service
+    mongo:
+        image: mongo
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=ananth
+            - MONGO_INITDB_ROOT_PASSWORD=mypassword
+        volumes:
+            - mongo-db:/data/db
+        ports:
+            - "27017:27017"
+            
+    # this is the redis database container service
+    redis:
+        image: redis
+
+
+volumes:
+    mongo-db:
