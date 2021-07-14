@@ -461,3 +461,12 @@ sudo docker exec -it {docker_container_name} bash
         # This is one way to set environment variables from the .env file
         set -o allexport; source /path/to/.env; set +o allexport
     ```
+
+8. Clone the GIT Repository in your virtual machine.
+9. Run the docker-compose command to run the containers
+
+    ```python
+        sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+    ```
+
+10. Test the api calls using postman with the IP address of the virtual machine and the correct port on which the production environment is listening.

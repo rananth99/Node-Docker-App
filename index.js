@@ -59,8 +59,8 @@ app.use(session({
     secret: `${SESSION_SECRET}`,
     cookie: {
         secure: false,
-        resave: false,
-        saveUninitialized: false,
+        resave: false,     
+        saveUninitialized: true,
         httpOnly: true,
         maxAge: 600000,
     }
